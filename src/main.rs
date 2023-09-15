@@ -11,6 +11,14 @@ fn main() {
         if i.is_empty() {
             Err("Password cannot be empty!")
         } else {
+            let confirm_password = get_input("Confirm password: ", true, |c| {
+                Ok(Zeroizing::new(String::from(c)))
+            });
+
+            if i != *confirm_password {
+                return Err("Passwords do not match!");
+            }
+
             let password_is_b64_encoded = get_input(
                 "Was the password base64 encoded? (y|n) [default: n] ",
                 false,
